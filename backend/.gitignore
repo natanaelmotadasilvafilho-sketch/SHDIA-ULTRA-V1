@@ -1,0 +1,4 @@
+__pycache__/
+.venv/
+temporary_uploads/
+.env
