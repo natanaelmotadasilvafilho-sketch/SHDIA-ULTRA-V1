@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b14">
+<meta name="description" content="SHDIA ULTRA — Seu centro inteligente de ferramentas digitais.">
+<title>SHDIA ULTRA | AI Center</title>
+<style>
+:root {
+  --bg:#070b14; --panel:#0d1423; --panel2:#111b2d;
+  --border:#20304a; --text:#edf4ff; --muted:#8b9bb5;
+  --blue:#38bdf8; --purple:#8b5cf6; --green:#34d399;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#142342 0%,var(--bg) 55%);color:var(--text);font-family:Inter,system-ui,-apple-system,sans-serif;min-height:100vh}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{width:245px;flex-shrink:0;background:#080e19;border-right:1px solid var(--border);padding:24px 16px;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:11px;padding:4px 8px 28px}
+.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--blue),var(--purple));display:grid;place-items:center;font-weight:900;color:#06101c;font-size:19px;box-shadow:0 0 25px #38bdf833}
+.brand h1{font-size:16px;letter-spacing:1px;margin:0}
+.brand small{color:var(--blue);font-size:10px;letter-spacing:2px}
+.label{font-size:10px;letter-spacing:2px;color:#657792;margin:20px 10px 10px}
+.nav{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;color:var(--muted);border:0;background:transparent;text-align:left;width:100%;margin:2px 0}
+.nav:hover,.nav.active{background:#16243a;color:white}
+.nav.active{box-shadow:inset 3px 0 var(--blue)}
+.nav .ico{width:20px;text-align:center;font-size:17px}
+.side-bottom{margin-top:auto}
+.status{padding:14px;border:1px solid var(--border);border-radius:13px;background:#0c1524;font-size:12px;color:var(--muted)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:7px;box-shadow:0 0 8px var(--green)}
+main{flex:1;min-width:0;padding:30px clamp(16px,4vw,54px);max-width:1500px;margin:0 auto;width:100%}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:34px}
+.eyebrow{color:var(--blue);font-size:11px;letter-spacing:2px;font-weight:700}
+.topbar h2{font-size:clamp(23px,3vw,32px);margin:8px 0 0}
+.badge{border:1px solid #28425e;background:#102036;color:#9bdcff;padding:9px 12px;border-radius:30px;font-size:11px;white-space:nowrap}
+.hero{position:relative;overflow:hidden;padding:clamp(24px,4vw,42px);border:1px solid #2b4567;border-radius:22px;background:linear-gradient(115deg,#142640,#11152c 65%,#211542);margin-bottom:26px}
+.hero:after{content:"✦";position:absolute;font-size:180px;color:#7dd3fc0b;right:8%;top:-35px}
+.hero h3{font-size:clamp(25px,4vw,40px);line-height:1.12;max-width:570px;margin:12px 0}
+.hero p{color:#a9bad2;line-height:1.7;max-width:540px;font-size:14px}
+.gradient{background:linear-gradient(90deg,#67e8f9,#a78bfa);color:transparent;background-clip:text}
+.primary{background:linear-gradient(100deg,#38bdf8,#8b5cf6);color:#07111e;border:0;border-radius:10px;padding:12px 17px;font-weight:800;margin-top:12px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:30px 0 15px;gap:12px}
+.section-head h3{margin:0;font-size:18px}
+.section-head span{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{background:linear-gradient(145deg,#101a2a,#0b1220);border:1px solid var(--border);border-radius:16px;padding:20px;min-width:0;transition:.2s}
+.card:hover{border-color:#456b96;transform:translateY(-2px)}
+.card-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#1a2b43;font-size:20px;margin-bottom:18px}
+.card h4{margin:0 0 8px;font-size:15px}
+.card p{font-size:12px;color:var(--muted);line-height:1.6;margin:0 0 14px}
+.tag{font-size:10px;color:#7dd3fc;border:1px solid #28435e;padding:5px 8px;border-radius:20px;display:inline-block}
+.chatbox{border:1px solid var(--border);border-radius:17px;background:#0b1220;overflow:hidden}
+.chat-head{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.chat-head strong{font-size:14px}
+.chat-head small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.chat-messages{height:230px;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:85%;padding:12px 14px;border-radius:13px;font-size:13px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg.bot{background:#142238;border:1px solid #253a56;align-self:flex-start}
+.msg.user{background:#26315a;border:1px solid #424c7a;align-self:flex-end}
+.chat-form{display:flex;gap:10px;padding:13px;border-top:1px solid var(--border)}
+.chat-form input{min-width:0;flex:1;background:#101a2a;border:1px solid #293b54;border-radius:10px;padding:13px;color:white;outline:none}
+.chat-form input:focus{border-color:var(--blue)}
+.chat-form button{border:0;border-radius:10px;background:var(--blue);color:#07111e;padding:0 18px;font-weight:900}
+.view{display:none}.view.active{display:block}
+.tool-list{display:grid;gap:12px}
+.tool-row{display:flex;align-items:center;gap:14px;padding:16px;border-radius:13px;background:#101a2a;border:1px solid var(--border)}
+.tool-row .card-icon{margin:0;flex-shrink:0}
+.tool-row p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.tool-row button{margin-left:auto;border:1px solid #304966;background:#14243a;color:#b8e7ff;border-radius:9px;padding:9px 12px}
+.setting{margin-bottom:15px}
+.setting label{display:block;font-size:13px;margin-bottom:8px}
+.setting input,.setting textarea{width:100%;background:#0b1220;color:white;border:1px solid var(--border);border-radius:10px;padding:13px;outline:none}
+.notice{font-size:12px;color:#fbbf24;background:#302511;border:1px solid #5c451e;padding:13px;border-radius:10px;line-height:1.6}
+.history-empty{text-align:center;padding:45px 15px;color:var(--muted)}
+footer{padding:28px 0 10px;text-align:center;color:#60718b;font-size:11px}
+.mobile-menu{display:none}
+@media(max-width:850px){.sidebar{width:205px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}main{padding:24px 18px}}
+@media(max-width:620px){.app{display:block}.sidebar{width:100%;padding:12px 14px;border-right:0;border-bottom:1px solid var(--border);display:block}.brand{padding:3px 4px 12px}.side-nav{display:flex;gap:5px;overflow-x:auto}.label,.side-bottom{display:none}.nav{width:auto;white-space:nowrap;padding:10px;font-size:12px}.nav .ico{width:auto}.nav.active{box-shadow:inset 0 -2px var(--blue)}main{padding:22px 14px}.topbar{margin-bottom:22px}.badge{font-size:10px;padding:8px}.grid{grid-template-columns:1fr}.hero:after{right:-20px}.chat-messages{height:260px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">S</div><div><h1>SHDIA ULTRA</h1><small>INTELLIGENCE SYSTEM</small></div></div>
+  <div class="label">MENU PRINCIPAL</div>
+  <nav class="side-nav">
+    <button class="nav active" data-view="home"><span class="ico">⌂</span> Início</button>
+    <button class="nav" data-view="chat"><span class="ico">◈</span> Chat IA</button>
+    <button class="nav" data-view="tools"><span class="ico">✣</span> Ferramentas</button>
+    <button class="nav" data-view="history"><span class="ico">◷</span> Histórico</button>
+    <button class="nav" data-view="settings"><span class="ico">⚙</span> Configurações</button>
+  </nav>
+  <div class="side-bottom"><div class="label">SISTEMA</div><div class="status"><span class="dot"></span>Interface online<br><br><span style="font-size:11px">Modo de demonstração</span></div></div>
+</aside>
+
+<main>
+  <div class="topbar"><div><div class="eyebrow">CENTRO DE COMANDO DIGITAL</div><h2 id="page-title">Seu espaço inteligente.</h2></div><div class="badge">✦ SHDIA WEB</div></div>
+
+  <section class="view active" id="home">
+    <div class="hero"><div class="eyebrow">✦ INTELIGÊNCIA • PRODUTIVIDADE • TECNOLOGIA</div><h3>O próximo nível da sua experiência <span class="gradient">digital.</span></h3><p>Um painel moderno para organizar suas ideias, explorar ferramentas e preparar sua experiência de inteligência artificial em um só lugar.</p><button class="primary" data-go="chat">Abrir Chat IA&nbsp; →</button></div>
+    <div class="section-head"><h3>Seu painel</h3><span>Seu ambiente digital</span></div>
+    <div class="grid">
+      <div class="card"><div class="card-icon">◈</div><h4>Assistente IA</h4><p>Converse com o assistente e organize suas ideias em linguagem natural.</p><span class="tag">CHAT</span></div>
+      <div class="card"><div class="card-icon">✧</div><h4>Central de ferramentas</h4><p>Acesse atalhos e recursos úteis em uma interface unificada.</p><span class="tag">UTILIDADES</span></div>
+      <div class="card"><div class="card-icon">⚙</div><h4>Seu ambiente</h4><p>Veja as opções disponíveis para personalizar sua experiência.</p><span class="tag">CONFIGURAÇÃO</span></div>
+    </div>
+    <div class="section-head"><h3>Experimente o chat</h3><span>Modo de demonstração</span></div>
+    <div class="chatbox"><div class="chat-head"><div class="logo" style="width:34px;height:34px;font-size:15px">S</div><div><strong>SHDIA Assistant</strong><small><span class="dot"></span>Interface pronta • IA ainda não conectada</small></div></div><div class="chat-messages" id="home-messages"><div class="msg bot">Olá! 👋 Sou a interface do SHDIA ULTRA. Posso demonstrar o funcionamento do chat. Para respostas reais de IA, será necessário conectar um serviço de IA por meio de um backend seguro.</div></div><form class="chat-form" data-chat="home"><input name="message" placeholder="Escreva sua mensagem..." autocomplete="off" required><button type="submit">➤</button></form></div>
+  </section>
+
+  <section class="view" id="chat">
+    <div class="section-head"><h3>Chat com o SHDIA</h3><span>Prévia da interface</span></div>
+    <div class="chatbox"><div class="chat-head"><div class="logo" style="width:34px;height:34px;font-size:15px">S</div><div><strong>SHDIA Assistant</strong><small>Modo de demonstração</small></div></div><div class="chat-messages" id="chat-messages"><div class="msg bot">Bem-vindo ao Chat IA do SHDIA ULTRA! A interface está funcionando. A conexão com um modelo real de IA será configurada separadamente.</div></div><form class="chat-form" data-chat="chat"><input name="message" placeholder="Pergunte alguma coisa..." autocomplete="off" required><button type="submit">➤</button></form></div>
+    <p style="color:var(--muted);font-size:12px;line-height:1.7">Importante: esta versão demonstra a interface. Ela não envia mensagens a um modelo de IA real e não solicita chaves secretas.</p>
+  </section>
+
+  <section class="view" id="tools">
+    <div class="section-head"><h3>Ferramentas</h3><span>Central de recursos</span></div>
+    <div class="tool-list">
+      <div class="tool-row"><div class="card-icon">✍</div><div><strong>Assistente de escrita</strong><p>Prepare textos, ideias e rascunhos com ajuda de IA quando conectada.</p></div><button data-go="chat">Abrir</button></div>
+      <div class="tool-row"><div class="card-icon">⌘</div><div><strong>Organizador de ideias</strong><p>Use o chat para estruturar tarefas e planejar projetos.</p></div><button data-go="chat">Abrir</button></div>
+      <div class="tool-row"><div class="card-icon">◷</div><div><strong>Histórico de conversa</strong><p>Veja as mensagens desta sessão enquanto a página estiver aberta.</p></div><button data-go="history">Abrir</button></div>
+    </div>
+  </section>
+
+  <section class="view" id="history">
+    <div class="section-head"><h3>Histórico</h3><span>Esta sessão</span></div>
+    <div class="card"><div id="history-list" class="history-empty">Suas conversas aparecerão aqui quando você enviar mensagens nesta página.</div></div>
+  </section>
+
+  <section class="view" id="settings">
+    <div class="section-head"><h3>Configurações</h3><span>Preferências do painel</span></div>
+    <div class="card">
+      <div class="setting"><label for="nickname">Nome de exibição</label><input id="nickname" placeholder="Como quer chamar seu assistente?"></div>
+      <div class="setting"><label for="theme">Tema</label><input id="theme" value="SHDIA Dark — Futurista" readonly></div>
+      <div class="notice">🔒 Segurança: não coloque chaves de API neste HTML. Para conectar uma IA real, a chave deve ficar protegida no backend, nunca no navegador.</div>
+      <button class="primary" id="save-settings">Salvar preferências</button><span id="save-message" style="font-size:12px;color:var(--green);margin-left:10px"></span>
+    </div>
+  </section>
+
+  <footer>SHDIA ULTRA © 2026 · Interface web experimental · Construído para evoluir.</footer>
+</main>
+</div>
+<script>
+const titles={home:"Seu espaço inteligente.",chat:"Converse com a inteligência.",tools:"Ferramentas para você.",history:"Suas atividades.",settings:"Personalize seu ambiente."};
+function go(view){
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===view));
+  document.querySelectorAll(".nav").forEach(b=>b.classList.toggle("active",b.dataset.view===view));
+  document.getElementById("page-title").textContent=titles[view]||titles.home;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.view)));
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(b.dataset.go)));
+const historyItems=[];
+function addHistory(who,text){
+  historyItems.unshift({who,text});
+  const box=document.getElementById("history-list");
+  box.className="tool-list";
+  box.replaceChildren();
+  historyItems.forEach(item=>{
+    const row=document.createElement("div");row.className="tool-row";
+    const icon=document.createElement("div");icon.className="card-icon";icon.textContent=item.who==="Você"?"◉":"✧";
+    const body=document.createElement("div");const strong=document.createElement("strong");strong.textContent=item.who;
+    const p=document.createElement("p");p.textContent=item.text;
+    body.append(strong,p);row.append(icon,body);box.append(row);
+  });
+}
+document.querySelectorAll(".chat-form").forEach(form=>form.addEventListener("submit",e=>{
+  e.preventDefault();
+  const input=form.elements.message;const value=input.value.trim();if(!value)return;
+  const target=document.getElementById(form.dataset.chat+"-messages");
+  const user=document.createElement("div");user.className="msg user";user.textContent=value;target.append(user);
+  addHistory("Você",value);
+  const reply=document.createElement("div");reply.className="msg bot";
+  reply.textContent="Recebi sua mensagem! Esta é uma demonstração da interface SHDIA ULTRA. Para responder de verdade usando inteligência artificial, precisamos conectar um provedor de IA por um backend seguro. Sua mensagem não foi enviada a nenhum serviço externo.";
+  target.append(reply);addHistory("SHDIA Assistant",reply.textContent);
+  target.scrollTop=target.scrollHeight;input.value="";
+}));
+document.getElementById("save-settings").addEventListener("click",()=>{
+  const nickname=document.getElementById("nickname").value.trim();
+  try{localStorage.setItem("shdia_nickname",nickname)}catch(e){}
+  document.getElementById("save-message").textContent="Preferências salvas neste dispositivo.";
+});
+try{document.getElementById("nickname").value=localStorage.getItem("shdia_nickname")||""}catch(e){}
+</script>
+</body>
+</html>
